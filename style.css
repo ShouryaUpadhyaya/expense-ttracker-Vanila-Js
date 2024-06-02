@@ -1,0 +1,56 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #212121;
+}
+.table {
+  /* border: solid 1px black; */
+  border-radius: 11em;
+}
+table {
+  width: 100%;
+  min-width: 85vw;
+  border-collapse: collapse;
+  margin: 0;
+  background-color: #faf9f6;
+}
+td,
+th {
+  border: solid 1px black;
+  padding: 0.8em 0em;
+  text-align: center;
+}
+th {
+  font-size: 1.5em;
+}
+input,
+select {
+  outline: none;
+  border: none;
+  border-bottom: dashed 1px black;
+  background-color: transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+button {
+  position: absolute;
+  margin-top: 2em;
+  right: 8vw;
+  border-radius: 0px;
+  padding: 0.6em;
+  border: none;
+}
+button:hover {
+  scale: 1.1;
+  transition: 100ms;
+}
