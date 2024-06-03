@@ -14,21 +14,21 @@
     />
   </head>
   <body>
-    <div class="table">
-      <table>
+    <div class="">
+      <table class="table">
         <tr>
           <th>Expense Name</th>
           <th>Type</th>
           <th>Cost</th>
         </tr>
-        <tr class="tempRow">
+        <tr class="">
           <td><label for="expenseName">
             <input type="text" name="expenseName" id="">
           </label></td>
           <td>
             <label for="type"></label>
 
-            <select name="type" id="expenseType">
+            <select name="type" id="expenseType" placeholder="asdg">
               <option value="Housing">Housing</option>
               <option value="Transportation">Transportation</option>
               <option value="Food">Food</option>
@@ -45,16 +45,50 @@
               <option value="Entertainment ">Entertainment </option>
           </td>
           <td><label for="costInput">
-            <input type="number" name="costInput" id="">
+            <input type="number" name="costInput" data-expense-cost>
           </label></td>
         </tr>
-        <tr>
+        <tr class="totalRow">
             <td></td>
             <td></td>
             <td data-total-cost>₹00</td>
         </tr>
     </table>
+    <select name="sortByType">
+
+              <option value="Gifts">Gifts/Donations</option>
+    </select>
     <button id="addRow">add</button>
     </div>
+        <template id="template">
+            <tr class="tempRow" id="tempRow">
+                <td><label for="expenseName">
+                    <input type="text" name="expenseName" id="">
+                </label></td>
+                <td>
+                <label for="type"></label>
+                <select name="type" id="expenseType">
+                    <option value="Housing">Housing</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Food">Food</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Clothing">Clothing</option>
+                    <option value="Medical/Healthcare">Medical/Healthcare</option>
+                    <option value="Household Items/Supplies">Household Items/Supplies</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Debt">Debt</option>
+                    <option value="retirement">retirement</option>
+                    <option value="Education">Education</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Gifts">Gifts/Donations</option>
+                    <option value="Entertainment ">Entertainment </option>
+                </td>
+                <td><label for="costInput">
+                    <input type="number" name="costInput" data-expense-cost>
+                </label>
+                </td>
+            </tr>
+        </template>
   </body>
+
 </html>
