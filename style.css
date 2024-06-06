@@ -49,7 +49,7 @@ button {
   position: absolute;
   margin-top: 2em;
   right: 8vw;
-  border-radius: 0px;
+  border-radius: 5px;
   padding: 0.6em;
   border: none;
 }
@@ -61,4 +61,14 @@ button:hover {
   width: 0vw;
   height: 0vh;
   visibility: hidden;
+}
+.type {
+  opacity: 30%;
+}
+.sort {
+  background-color: #faf9f6;
+  margin-top: 2em;
+  border-radius: 5px;
+  padding: 0.5em 0.1em;
+  border: none;
 }
