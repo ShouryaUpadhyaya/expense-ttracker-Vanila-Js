@@ -1,6 +1,6 @@
+// add date expense paid,
 // add sort fuctionality?
-// add to local storage
-// store value of name,type,cost,whole row in an object
+// sort by date chosen by user,week,day
 // add option to export as txt
 const addRowButton = document.querySelector("#addRow");
 const templateRow = document
@@ -17,6 +17,52 @@ function Row(name, type, cost, rowCode) {
   this.type = type;
   this.cost = cost;
   this.rowCode = rowCode;
+}
+function expenseNameRowObj(name, row) {
+  this.name = name;
+  this.row = row;
+}
+function sortByType() {
+  let rowsFromLocalStorage = JSON.parse(localStorage.getItem("rows"));
+  let sortedByTypeArray = [];
+  let sortedExpenseType = [];
+  console.log(rowsFromLocalStorage);
+  for (const row in rowsFromLocalStorage) {
+    if (Object.hasOwnProperty.call(rowsFromLocalStorage, row)) {
+      let currentRow = rowsFromLocalStorage[row];
+      sortedExpenseType.push(currentRow.type);
+    }
+  }
+  sortedExpenseType.sort();
+  sortedExpenseType.forEach((type) => {
+    for (const row in rowsFromLocalStorage) {
+      if (Object.hasOwnProperty.call(rowsFromLocalStorage, row)) {
+        const currentRow = rowsFromLocalStorage[row];
+        if (type === currentRow.type) {
+          sortedByTypeArray.push(currentRow);
+          break;
+        }
+      }
+    }
+  });
+  removeAllRows();
+  sortedByTypeArray.forEach((row) => {
+    currentRow = addRow();
+    let expenseName = currentRow.querySelector("[data-expense-name]");
+    let expenseType = currentRow.querySelector(".expenseType");
+    let cost = currentRow.querySelector("[data-expense-cost]");
+    expenseName.value = row.name;
+    expenseType.value = row.type;
+    cost.value = row.cost;
+  });
+}
+function removeAllRows() {
+  let rows = allRows();
+  rows.forEach((row) => {
+    if (row.classList.contains("tempRow")) {
+      row.remove();
+    }
+  });
 }
 function RowNumber(currentRow) {
   let rowsArray = Array.from(table.querySelectorAll(".tempRow"));
@@ -43,7 +89,8 @@ function calcTotal() {
   totalCost.innerText = `₹ ${allExpensesTotal}`;
 }
 function allRows() {
-  return Array.from(table.querySelectorAll("tr"));
+  let allrows = Array.from(table.querySelectorAll("tr"));
+  return allrows;
 }
 function loadOldData() {
   const data = localStorage.getItem("rows");
@@ -63,12 +110,41 @@ function loadOldData() {
   calcTotal();
 }
 function sortByCost(e) {
-  console.log("in sort by cost");
-  let costList = document.querySelectorAll("[data-expense-cost]");
-  let arangedList;
-  costList.forEach((cost) => {
-    // check if it was bigger than
+  let rowsFromLocalStorage = JSON.parse(localStorage.getItem("rows"));
+  let costsSortedFromStorage = [];
+  let sortedByCostRows = [];
+  for (const row in rowsFromLocalStorage) {
+    if (Object.hasOwnProperty.call(rowsFromLocalStorage, row)) {
+      let selectedRow = rowsFromLocalStorage[row];
+      costsSortedFromStorage.push(selectedRow.cost);
+    }
+  }
+  costsSortedFromStorage.sort((a, b) => {
+    return a - b;
   });
+  console.log("costsSortedFromStorage", costsSortedFromStorage);
+  costsSortedFromStorage.forEach((cost) => {
+    for (const row in rowsFromLocalStorage) {
+      if (Object.hasOwnProperty.call(rowsFromLocalStorage, row)) {
+        const selectedRow = rowsFromLocalStorage[row];
+        if (selectedRow.cost === cost) {
+          sortedByCostRows.push(selectedRow);
+        }
+      }
+    }
+  });
+  console.log("sortedByCostRows: ", sortedByCostRows);
+  removeAllRows();
+  sortedByCostRows.forEach((row) => {
+    let currentRow = addRow();
+    let expenseName = currentRow.querySelector("[data-expense-name]");
+    let expenseType = currentRow.querySelector(".expenseType");
+    let cost = currentRow.querySelector("[data-expense-cost]");
+    expenseName.value = row.name;
+    expenseType.value = row.type;
+    cost.value = row.cost;
+  });
+  console.log("in sort by cost");
 }
 loadOldData();
 addRowButton.addEventListener("click", (e) => {
@@ -77,24 +153,7 @@ addRowButton.addEventListener("click", (e) => {
 });
 sort.addEventListener("change", (e) => {
   if (sort.value === "sortByType") {
-    const expenseArray = Array.from(document.querySelectorAll(".expenseType"));
-    let rows = [];
-    let expenseNameArray = [];
-    expenseArray.forEach((expense) => {
-      expenseNameArray.push({
-        name: expense.value,
-        row: expense.parentNode.cloneNode(true),
-      });
-    });
-    let expenseArraySorted = expenseNameArray.toSorted();
-    // console.log(expenseArraySorted);
-    expenseArraySorted.forEach((expenseNameOnly) => {
-      rows.push(expenseNameOnly.parentNode);
-    });
-    console.log(rows);
-    // get rows from sorted array
-    // remove all the rows from the table
-    // add all the rows
+    sortByType();
   } else if (sort.value === "sortByCost") {
     sortByCost(e);
   }

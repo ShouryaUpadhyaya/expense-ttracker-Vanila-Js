@@ -3,12 +3,21 @@
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
+h1 {
+  color: #faf9f6;
+  position: absolute;
+  top: 10vh;
+  font-size: 3em;
+  /* text-align: center; */
+  margin: 0vh 0 0ch 0;
+}
 body {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   background-color: #212121;
+  flex-direction: column;
 }
 .table {
   /* border: solid 1px black; */
